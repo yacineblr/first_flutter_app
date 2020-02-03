@@ -1,7 +1,17 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
+import '../authentication_state.dart';
+
 class AccountPage extends StatefulWidget {
-  AccountPage({Key key}) : super(key: key);
+  final StreamController<AuthenticationState> _streamControllerAuth;
+
+  const AccountPage(this._streamControllerAuth);
+
+  signOut() {
+    _streamControllerAuth.add(AuthenticationState.signedOut());
+  }
 
   @override
   _AccountPageState createState() => _AccountPageState();
@@ -11,7 +21,14 @@ class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Center(child: Text('Account Page')),
+      child: Center(
+        child: Center(
+          child: RaisedButton(
+            child: Text('Sign Out'),
+            onPressed: widget.signOut,
+          ),
+        ),
+      ),
     );
   }
 }
