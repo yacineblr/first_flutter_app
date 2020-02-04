@@ -16,17 +16,17 @@ class _SearchPageState extends State<SearchPage> {
   final _formFieldDepartureKey = GlobalKey<FormFieldState>();
   final _formFieldArrivalKey = GlobalKey<FormFieldState>();
   final _formFieldDatetimeKey = GlobalKey<FormFieldState>();
-  final _formDatetimeTextEditingController = TextEditingController(text: '01/01/2000');
+  TextEditingController _formDatetimeTextEditingController;
 
-  ///Page Controller for the PageView
   final controller = PageController(initialPage: 0);
-  Map<String, Map<FormFieldState, Widget>> step;
 
   @override
   void initState() { 
     super.initState();
+    this._formDatetimeTextEditingController = TextEditingController(
+      text: humanDatetime(DateTime.now().add(Duration(days: 1)))
+    );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -113,17 +113,17 @@ class _SearchPageState extends State<SearchPage> {
           GestureDetector(
             onTap: () {
               print('click');
-              DatePicker.showDatePicker(
+              DatePicker.showDateTimePicker(
                 context,
                 showTitleActions: true,
-                minTime: DateTime(2018, 3, 5),
-                maxTime: DateTime(2019, 6, 7),
+                minTime: DateTime.now().add(Duration(days: 1)),
+                maxTime: DateTime.now().add(Duration(days: 61)),
                 onChanged: (date) {
                   print('change $date');
                 },
                 onConfirm: (date) {
                   print('confirm $date');
-                  _formDatetimeTextEditingController.text = date.toString();
+                  _formDatetimeTextEditingController.text = humanDatetime(date);
                 },
                 currentTime: DateTime.now(),
                 locale: LocaleType.fr
@@ -201,6 +201,10 @@ class _SearchPageState extends State<SearchPage> {
     // widget tree.
     _formDatetimeTextEditingController.dispose();
     super.dispose();
+  }
+
+  String humanDatetime(DateTime date) {
+    return '${date.day}/${date.month}/${date.year} ${date.hour}:${date.minute}';
   }
 
 }
