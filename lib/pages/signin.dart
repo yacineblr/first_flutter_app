@@ -20,13 +20,20 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: RaisedButton(
-          child: Text('Sign in'),
-          onPressed: widget.signIn,
-        ),
+    return SafeArea(child: Container(
+      child: Column(
+        children: <Widget>[
+          TextFormField(
+            decoration: InputDecoration(
+              hintText: 'Hint text'
+            ),
+          ),
+          RaisedButton(
+            child: Text('Sign in'),
+            onPressed: widget.signIn,
+          )
+        ],
       ),
-    );
+    ));
   }
 }

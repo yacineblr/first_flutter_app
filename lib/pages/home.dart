@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_lottie_4basic/flutter_lottie_4basic.dart';
 
+import '../i18n.dart';
+
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
 
@@ -15,9 +17,15 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Container(
       child: Column(children: <Widget>[
-        HomeLottieAnimation()
+        HomeLottieAnimation(),
+        Text(I18n.of(context).appTitle)
       ],),
     );
+  }
+
+  @override
+  void dispose() { 
+    super.dispose();
   }
 }
 
@@ -55,7 +63,7 @@ class _HomeLottieAnimationState extends State<HomeLottieAnimation> {
         SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * 0.387,
-          child: true ? Text('Lottie') : LottieView.fromFile(
+          child: LottieView.fromFile(
             filePath: "assets/animations/home.json",
             autoPlay: true,
             loop: true,

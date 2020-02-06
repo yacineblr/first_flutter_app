@@ -43,5 +43,10 @@
 	<false/>
 	<key>io.flutter.embedded_views_preview</key>
 	<true />
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>English</string>
+		<string>French</string>
+	</array>
 </dict>
 </plist>

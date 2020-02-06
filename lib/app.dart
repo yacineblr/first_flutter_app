@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:my_app/pages/signin.dart';
 import 'authentication_state.dart';
+import 'pages/signin.dart';
 import 'pages/home.dart';
 // import 'pages/search.dart';
 import 'pages/account.dart';
@@ -20,7 +20,19 @@ class _AppState extends State<App> {
   int _saveCurrentIndexWhenPushSearch;
   int _currentIndex = 0;
 
+  HomePage _homePage;
+  AccountPage _accountPage;
+  SignInPage _signInPage;
+
   final _streamControllerAuth = new StreamController<AuthenticationState>();
+
+  @override
+  void initState() { 
+    super.initState();
+    _homePage = new HomePage();
+    _accountPage = new AccountPage(_streamControllerAuth);
+    _signInPage = new SignInPage(_streamControllerAuth);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +46,9 @@ class _AppState extends State<App> {
     );
   }
 
-  Widget buildUi(BuildContext content, AuthenticationState s) {
+  Widget buildUi(BuildContext _context, AuthenticationState s) {
     List children = [
-      HomePage(),
+      _homePage,
       null
     ];
     List<BottomNavigationBarItem> items = [
@@ -44,35 +56,32 @@ class _AppState extends State<App> {
       BottomNavigationBarItem(icon: Icon(Icons.search), title: Text('Search')),
     ];
     if (s.authenticated) {
-      children.add(AccountPage(_streamControllerAuth));
+      children.add(_accountPage);
       items.add(BottomNavigationBarItem(icon: Icon(Icons.person), title: Text('Profile')));
     } else {
-      children.add(SignInPage(_streamControllerAuth));
+      children.add(_signInPage);
       items.add(BottomNavigationBarItem(icon: Icon(Icons.person_outline), title: Text('SignIn')));
     }
-    return MaterialApp(
-      home: Scaffold(
-          bottomNavigationBar: BottomNavigationBar(
-            onTap: (int index) {
-              if (index == 1) { // SearchPage Index
-                _saveCurrentIndexWhenPushSearch = _currentIndex;
-                Navigator.pushNamed(context, '/search').then((value) {
-                  setState(() {
-                    _currentIndex = _saveCurrentIndexWhenPushSearch;
-                  });
-                });
-              }
+    return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (int index) {
+          if (index == 1) { // SearchPage Index
+            _saveCurrentIndexWhenPushSearch = _currentIndex;
+            Navigator.pushNamed(context, '/search').then((value) {
               setState(() {
-                _currentIndex = index;
+                _currentIndex = _saveCurrentIndexWhenPushSearch;
               });
-            },
-            currentIndex: _currentIndex,
-            items: items,
-          ),
-          body: children[_currentIndex],
-        ),
-    )
-    ;
+            });
+          }
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        currentIndex: _currentIndex,
+        items: items,
+      ),
+      body: children[_currentIndex],
+    );
   }
 
   @override

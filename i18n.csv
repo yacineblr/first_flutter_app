@@ -1,0 +1,4 @@
+keys,fr,en
+appTitle,Un super titre,An awesome title
+description,Une descritpion avec une variable : %name$s,A descritpion with a variable : %name$s
+ok,ok,

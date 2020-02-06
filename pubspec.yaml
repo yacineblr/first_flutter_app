@@ -32,6 +32,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flappy_translator: ^1.2.2
 
 
 # For information on the generic Dart part of this file, see the
