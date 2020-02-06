@@ -10,8 +10,8 @@ class SearchResult extends StatefulWidget {
 class _SearchResultState extends State<SearchResult> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SafeArea(child: Container(
        child: Center(child: Text('SearchResult')),
-    );
+    ));
   }
 }

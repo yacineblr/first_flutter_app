@@ -5,12 +5,13 @@ import 'package:flutter/material.dart';
 import '../authentication_state.dart';
 
 class SignInPage extends StatefulWidget {
-  final StreamController<AuthenticationState> _streamControllerAuth;
+  final StreamController<AuthenticationState> streamControllerAuth;
 
-  SignInPage(this._streamControllerAuth);
+  SignInPage({Key key, this.streamControllerAuth}) : super(key: key);
+  // SignInPage(this.streamControllerAuth);
 
   signIn() async {
-    _streamControllerAuth.add(AuthenticationState.authenticated());
+    streamControllerAuth.add(AuthenticationState.authenticated());
   }
 
   @override

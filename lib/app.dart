@@ -20,6 +20,8 @@ class _AppState extends State<App> {
   int _saveCurrentIndexWhenPushSearch;
   int _currentIndex = 0;
 
+  // final PageStorageBucket bucket = PageStorageBucket();
+
   HomePage _homePage;
   AccountPage _accountPage;
   SignInPage _signInPage;
@@ -28,10 +30,17 @@ class _AppState extends State<App> {
 
   @override
   void initState() { 
+    print('INIT');
     super.initState();
-    _homePage = new HomePage();
-    _accountPage = new AccountPage(_streamControllerAuth);
-    _signInPage = new SignInPage(_streamControllerAuth);
+    _homePage = new HomePage(key: PageStorageKey('HomePage'));
+    _accountPage = new AccountPage(
+      key: PageStorageKey('AccountPage'),
+      streamControllerAuth: _streamControllerAuth
+    );
+    _signInPage = new SignInPage(
+      key: PageStorageKey('SignInPage'),
+      streamControllerAuth: _streamControllerAuth
+    );
   }
 
   @override
@@ -47,9 +56,9 @@ class _AppState extends State<App> {
   }
 
   Widget buildUi(BuildContext _context, AuthenticationState s) {
-    List children = [
+    List<Widget> children = [
       _homePage,
-      null
+      Container()
     ];
     List<BottomNavigationBarItem> items = [
       BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Home')),
@@ -80,7 +89,8 @@ class _AppState extends State<App> {
         currentIndex: _currentIndex,
         items: items,
       ),
-      body: children[_currentIndex],
+      body: IndexedStack( index: _currentIndex, children: children),
+      // body: children[_currentIndex]
     );
   }
 

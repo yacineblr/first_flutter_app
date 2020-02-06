@@ -15,12 +15,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SafeArea(child: Container(
       child: Column(children: <Widget>[
-        HomeLottieAnimation(),
+        // HomeLottieAnimation(),
         Text(I18n.of(context).appTitle)
-      ],),
-    );
+      ])
+    ));
   }
 
   @override

@@ -183,13 +183,11 @@ class _SearchPageState extends State<SearchPage> {
       extendBodyBehindAppBar: true,
       body: Form(
         key: _formKey,
-        child: SafeArea(
-          child: PageView(
-            controller: controller,
-            scrollDirection: Axis.vertical,
-            pageSnapping: true,
-            children: list,
-          )
+        child: PageView(
+          controller: controller,
+          scrollDirection: Axis.vertical,
+          pageSnapping: true,
+          children: list,
         )
       ),
     );

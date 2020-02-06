@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import '../authentication_state.dart';
 
 class AccountPage extends StatefulWidget {
-  final StreamController<AuthenticationState> _streamControllerAuth;
+  final StreamController<AuthenticationState> streamControllerAuth;
 
-  const AccountPage(this._streamControllerAuth);
+  const AccountPage({Key key, this.streamControllerAuth}) : super(key: key);
 
   signOut() {
-    _streamControllerAuth.add(AuthenticationState.signedOut());
+    streamControllerAuth.add(AuthenticationState.signedOut());
   }
 
   @override
@@ -20,7 +20,7 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SafeArea(child: Container(
       child: Center(
         child: Center(
           child: RaisedButton(
@@ -29,6 +29,6 @@ class _AccountPageState extends State<AccountPage> {
           ),
         ),
       ),
-    );
+    ));
   }
 }
